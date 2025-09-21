@@ -1,11 +1,8 @@
-import React from "react";
-
 import type { SquareProps } from "../types/square";
 
-
-export default function Square({ value }: SquareProps) {
+export default function Square({value,onSquareClick}: SquareProps): JSX.Element {
   return (
-    <button className="square">
+    <button className="square" onClick={onSquareClick}>
       {value}
     </button>
   );
