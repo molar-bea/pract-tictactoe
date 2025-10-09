@@ -4,7 +4,30 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+   width: 100%; 
+  padding: 1rem;
+  box-sizing: border-box;
 }
+
+h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .board-row {
   display: flex;
@@ -13,10 +36,40 @@
 }
 
 .square {
-  width: 60px;
-  height: 60px;
-  font-size: 24px;
+  width: clamp(50px, 12vw, 80px);
+  height: clamp(50px, 12vw, 80px);
+  font-size: clamp(18px, 4vw, 32px);
   font-weight: bold;
   margin: 4px;
   cursor: pointer;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #333; /* Dark background */
+  color: #fff; /* White letters for contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.square:hover {
+  background-color: #555;
+}
+
+.game-info {
+  margin-top: 1rem;
+  font-size: clamp(14px, 2vw, 18px);
+}
+
+button {
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #eee;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #ddd;
 }
