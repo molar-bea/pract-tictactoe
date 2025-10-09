@@ -2,21 +2,27 @@ import Square from "./square";
 import type { BoardProps, SquareValue } from "./../types/type";
 
 export default function Board({ xIsNext, squares, onPlay }: BoardProps): JSX.Element {
+  
+  const winner = calculateWinner(squares);
+  const isDraw = !winner && squares.every((square) => square !== null);
+  
   function handleClick(i: number): void {
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
+    if (winner || squares[i]) return;
 
     const nextSquares = squares.slice() as SquareValue[];
     nextSquares[i] = xIsNext ? "X" : "O";
     onPlay(nextSquares);
   }
 
-  const winner: SquareValue = calculateWinner(squares);
-  const status: string = winner
-    ? `Winner: ${winner}`
-    : `Next player: ${xIsNext ? "X" : "O"}`;
-
+  let status: string;
+  if (winner) {
+    status = `Winner: ${winner}`;
+  } else if (isDraw) {
+    status = "It's a Draw!";
+  } else {
+    status = `Next player: ${xIsNext ? "X" : "O"}`;
+  }
+  
   return (
     <div>
       <div className="status">{status}</div>
