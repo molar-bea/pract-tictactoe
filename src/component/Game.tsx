@@ -1,3 +1,4 @@
+// Game.tsx
 import { useState } from "react";
 import Board from "./board";
 import type { Squares } from "./../types/type";
@@ -7,6 +8,9 @@ export default function Game(): JSX.Element {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+
+  const winner = calculateWinner(currentSquares);
+  const isDraw = !winner && currentSquares.every((square) => square !== null);
 
   function handlePlay(nextSquares: Squares): void {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -21,12 +25,12 @@ export default function Game(): JSX.Element {
 
   return (
     <div className="game">
+      <h1>TICTACTOE</h1>
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        {/* Show restart button only if game is won */}
-        {calculateWinner(currentSquares) && (
+        {(winner || isDraw) && (
           <button onClick={restartGame} className="restart-btn">
             Restart Game
           </button>
@@ -36,7 +40,6 @@ export default function Game(): JSX.Element {
   );
 }
 
-// Winner calculation (same as in Board, but reused here)
 function calculateWinner(squares: Squares): string | null {
   const lines: number[][] = [
     [0, 1, 2],
